@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import Discord from 'discord.js';
-import events from '@events/index';
-import commands from '@commands/index';
+import events from './events';
+import commands from './commands';
 
 import { CustomClient } from './types';
 

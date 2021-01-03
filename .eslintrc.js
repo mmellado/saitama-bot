@@ -13,13 +13,6 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts'],
     },
     'import/resolver': {
-      alias: {
-        map: [
-          ['@events', './src/events'],
-          ['@commands', './src/commands'],
-        ],
-        extensions: ['.js', '.ts', '.json'],
-      },
       typescript: {
         project: './tsconfig.json',
         alwaysTryTypes: true,

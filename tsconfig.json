@@ -22,11 +22,6 @@
     "resolveJsonModule": true,
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
-      "@events/*": ["src/events"],
-      "@commands/*": ["src/commands"],
-    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
