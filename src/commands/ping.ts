@@ -1,7 +1,6 @@
-import { Message } from 'discord.js';
-import { CustomClient } from '../types';
+import { Command } from './types';
 
-const ping = (_: CustomClient, message: Message): void => {
+const ping: Command = (_, message) => {
   //   const msg = message.channel.send('Ping?');
   //   msg.edit(
   //     `Pong! Latency is ${

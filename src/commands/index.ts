@@ -1,15 +1,12 @@
-import Discord, { Collection, Message, Snowflake } from 'discord.js';
-import { CustomClient } from '../types';
+import Discord from 'discord.js';
+import { CommandCollection } from './types';
 
 import ping from './ping';
+import code from './code';
 
-export type Command = Collection<
-  Snowflake,
-  (client: CustomClient, msg: Message) => void
->;
-
-const commands: Command = new Discord.Collection();
+const commands: CommandCollection = new Discord.Collection();
 
 commands.set('ping', ping);
+commands.set('code', code);
 
 export default commands;
