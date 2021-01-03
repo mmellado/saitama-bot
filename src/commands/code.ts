@@ -1,7 +1,16 @@
-import { CollectorFilter, Message } from 'discord.js';
+import dotenv from 'dotenv';
+
+import Discord, {
+  CollectorFilter,
+  DiscordAPIError,
+  Message,
+  TextChannel,
+} from 'discord.js';
 import { CommandPromise } from './types';
 
-const code: CommandPromise = async (_, message, args) => {
+dotenv.config();
+
+const code: CommandPromise = async (client, message, args) => {
   if (!args?.length) {
     message.channel.send('A code is needed to use this command');
     return;
@@ -19,9 +28,19 @@ const code: CommandPromise = async (_, message, args) => {
     errors: ['time'],
   });
 
-  message.channel.send(
-    `New Code: **${newCode}**. \n Reward: ${reply.first()?.content}`
-  );
+  const replyChannel =
+    (client.channels.cache.find(
+      (channel: TextChannel) => channel.name === process.env.CODES_CHANNEL
+    ) as TextChannel) || message.channel;
+
+  const embed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('New Code!')
+    .setDescription(newCode)
+    .addFields({ name: 'Rewards', value: reply.first()?.content })
+    .setFooter('Be aware that this code may expire at any time');
+
+  replyChannel.send(embed);
 };
 
 export default code;
