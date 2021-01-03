@@ -1,9 +1,7 @@
-import { CollectorFilter } from 'discord.js';
+import { CollectorFilter, Message } from 'discord.js';
 import { CommandPromise } from './types';
 
 const code: CommandPromise = async (_, message, args) => {
-  console.log(args);
-
   if (!args) {
     message.channel.send('A code is needed to use this command');
     return;
@@ -11,10 +9,8 @@ const code: CommandPromise = async (_, message, args) => {
 
   const newCode = args[0];
 
-  const filter: CollectorFilter = (response) => {
-    console.log(response);
-    return true;
-  };
+  const filter: CollectorFilter = (response: Message) =>
+    response.author.id === message.author.id;
 
   message.channel.send(`What's this code's reward?`);
   const reply = await message.channel.awaitMessages(filter, {
@@ -23,8 +19,9 @@ const code: CommandPromise = async (_, message, args) => {
     errors: ['time'],
   });
 
-  console.log(code, reply);
-  message.channel.send(`Code: ${newCode}. Reward: ${reply}`);
+  message.channel.send(
+    `Code: **${newCode}**. Reward: ${reply.first()?.content}`
+  );
 };
 
 export default code;
