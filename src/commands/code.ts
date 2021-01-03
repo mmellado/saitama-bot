@@ -11,6 +11,8 @@ const code: CommandPromise = async (client, message, args) => {
     return;
   }
 
+  console.log(message.author);
+
   const newCode = args[0];
 
   const filter: CollectorFilter = (response: Message) =>
@@ -33,7 +35,7 @@ const code: CommandPromise = async (client, message, args) => {
     .setTitle('New Code!')
     .setDescription(newCode)
     .addFields({ name: 'Rewards', value: reply.first()?.content })
-    .setFooter('Be aware that this code may expire at any time');
+    .setTimestamp();
 
   replyChannel.send(embed);
 };
