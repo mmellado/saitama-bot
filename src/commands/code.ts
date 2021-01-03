@@ -2,7 +2,7 @@ import { CollectorFilter, Message } from 'discord.js';
 import { CommandPromise } from './types';
 
 const code: CommandPromise = async (_, message, args) => {
-  if (!args) {
+  if (!args?.length) {
     message.channel.send('A code is needed to use this command');
     return;
   }
@@ -20,7 +20,7 @@ const code: CommandPromise = async (_, message, args) => {
   });
 
   message.channel.send(
-    `Code: **${newCode}**. Reward: ${reply.first()?.content}`
+    `New Code: **${newCode}**. \n Reward: ${reply.first()?.content}`
   );
 };
 
