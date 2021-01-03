@@ -1,17 +1,25 @@
 import dotenv from 'dotenv';
 
-import Discord, { CollectorFilter, Message, TextChannel } from 'discord.js';
+import Discord, {
+  CollectorFilter,
+  Message,
+  TextChannel,
+  Role,
+  Collection,
+} from 'discord.js';
 import { CommandPromise } from './types';
+import isAdminUser from '../utils/isAdminUser';
 
 dotenv.config();
 
 const code: CommandPromise = async (client, message, args) => {
+  if (!isAdminUser(message.member?.roles.cache as Collection<string, Role>)) {
+    return;
+  }
   if (!args?.length) {
     message.channel.send('A code is needed to use this command');
     return;
   }
-
-  console.log(message.author);
 
   const newCode = args[0];
 
