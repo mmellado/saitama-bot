@@ -9,7 +9,6 @@ const adminRoles =
 const isAdminUser = (userRoles: Collection<string, Role>): boolean =>
   userRoles.some((role: Role) => {
     if (adminRoles.includes(role.name)) {
-      console.log(`Incluye ele rol ${role.name}`);
       return true;
     }
 
