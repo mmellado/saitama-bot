@@ -5,10 +5,11 @@ import Discord from 'discord.js';
 import events from './events';
 import commands from './commands';
 import { CustomClient } from './types';
+import defaultSettings from './defaultSettings';
 
 dotenv.config();
 const config = {
-  prefix: process.env.prefix || 's!',
+  prefix: process.env.prefix || defaultSettings.prefix,
 };
 
 const client = new Discord.Client() as CustomClient;
