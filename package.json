@@ -6,6 +6,7 @@
   "author": "Marcos Mellado <marcos@mellados.com>",
   "license": "MIT",
   "dependencies": {
+    "@replit/database": "^2.0.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
   },
