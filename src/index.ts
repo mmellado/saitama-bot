@@ -1,8 +1,9 @@
+import http from 'http';
 import dotenv from 'dotenv';
 import Discord from 'discord.js';
+
 import events from './events';
 import commands from './commands';
-
 import { CustomClient } from './types';
 
 dotenv.config();
@@ -19,3 +20,10 @@ events.forEach((listener, event) => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+// Keep the bot alive on Repl.it
+const server = http.createServer((_, res) => {
+  res.writeHead(200);
+  res.end('ok');
+});
+server.listen(3000);
