@@ -1,3 +1,4 @@
+import Discord from 'discord.js';
 import { CommandPromise } from './types';
 
 const nickname: CommandPromise = async (_, message, args) => {
@@ -6,9 +7,15 @@ const nickname: CommandPromise = async (_, message, args) => {
     await message.member?.setNickname(newNickname);
 
     message.delete();
-    message.channel.send(
-      `Your nickname has been updated, ${message.author.toString()}`
-    );
+    const embed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle(':pencil: Nickname updated!')
+      .setDescription(
+        `Your nickname has been updated, ${message.author.toString()}`
+      )
+      .setTimestamp();
+
+    message.channel.send(embed);
   } catch (err) {
     console.error(err);
   }
