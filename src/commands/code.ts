@@ -1,11 +1,6 @@
 import dotenv from 'dotenv';
 
-import Discord, {
-  CollectorFilter,
-  DiscordAPIError,
-  Message,
-  TextChannel,
-} from 'discord.js';
+import Discord, { CollectorFilter, Message, TextChannel } from 'discord.js';
 import { CommandPromise } from './types';
 
 dotenv.config();
