@@ -1,0 +1,17 @@
+{
+  "editor.tabSize": 2,
+  "[typescipt]": {
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@events": ["src/events/*"],
+      "@commands": ["src/commands/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "saitama-bot",
+  "version": "1.0.0",
+  "description": "Discord bot to help with One Punch Man - Road to Hero 2.0",
+  "main": "index.js",
+  "author": "Marcos Mellado <marcos@mellados.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.16",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "dev": "nodemon -e js,ts --watch src --exec \"yarn build:ts && yarn start:app\"",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
