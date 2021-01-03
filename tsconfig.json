@@ -1,19 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["esnext"],
+    "module": "CommonJS",
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "jsx": "react",
-    "module": "esnext",
     "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -26,8 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@events/*": ["src/events/*"],
-      "@commands/*": ["src/commands/*"],
+      "@events/*": ["src/events"],
+      "@commands/*": ["src/commands"],
     }
   },
   "include": ["src/**/*"],

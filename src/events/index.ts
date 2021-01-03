@@ -4,10 +4,12 @@ import { CustomClient } from '../types';
 import ready from './ready';
 import message from './message';
 
-const events: Collection<
+export type Event = Collection<
   'ready' | 'message',
   (client: CustomClient, msg: Message) => void
-> = new Discord.Collection();
+>;
+
+const events: Event = new Discord.Collection();
 
 events.set('ready', ready);
 events.set('message', message);

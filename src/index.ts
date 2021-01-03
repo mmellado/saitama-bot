@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import Discord from 'discord.js';
 import events from '@events/index';
+import commands from '@commands/index';
 
 import { CustomClient } from './types';
 
@@ -11,7 +12,7 @@ const config = {
 
 const client = new Discord.Client() as CustomClient;
 client.config = config;
-client.commands = new Discord.Collection();
+client.commands = commands;
 
 events.forEach((listener, event) => {
   client.on(event, listener.bind(null, client));
