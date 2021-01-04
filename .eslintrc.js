@@ -38,5 +38,7 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'no-await-in-loop': 'off',
+    'no-console': 'off',
   },
 };
