@@ -41,7 +41,7 @@
     ]
   },
   "scripts": {
-    "dev": "nodemon -e js,ts --watch src --exec \"yarn build:ts && yarn start:app\"",
+    "dev": "nodemon -e js,ts --watch src --exec \"yarn build && yarn start\"",
     "build": "tsc",
     "start": "node dist/index.js",
     "postinstall": "patch-package"
