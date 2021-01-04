@@ -1,8 +1,11 @@
+import dotenv from 'dotenv';
 import Client from '@replit/database';
 import { Settings as ServerSettings } from '../models/server';
 import { SetterResponse } from './types';
 
-const db = new Client();
+dotenv.config();
+
+const db = new Client(process.env.REPLIT_DB_URL);
 
 const getKey = (serverId: string): string => `server-${serverId}`;
 
@@ -15,6 +18,19 @@ export const getServerSettings = async (
     return JSON.parse(data as string) as ServerSettings;
   } catch {
     return { error: 'No server with provided ID' };
+  }
+};
+
+export const setServerSettings = async (
+  serverId: string,
+  settings: ServerSettings
+): Promise<SetterResponse> => {
+  try {
+    const key = getKey(serverId);
+    await db.set(key, JSON.stringify(settings));
+    return { code: 200, message: 'success' };
+  } catch (error) {
+    return { code: 500, message: error };
   }
 };
 
