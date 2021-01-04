@@ -1,0 +1,10 @@
+diff --git a/node_modules/@replit/database/index.d.ts b/node_modules/@replit/database/index.d.ts
+index 6a7a8a2..e55db64 100644
+--- a/node_modules/@replit/database/index.d.ts
++++ b/node_modules/@replit/database/index.d.ts
+@@ -1,4 +1,4 @@
+-export class Client {
++export default class Client {
+   constructor(key?: string);
+ 
+   // Native

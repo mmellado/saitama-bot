@@ -1,4 +1,4 @@
-import { Client } from '@replit/database';
+import Client from '@replit/database';
 import { Settings as ServerSettings } from '../models/server';
 import { SetterResponse } from './types';
 
