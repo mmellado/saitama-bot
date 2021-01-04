@@ -4,5 +4,5 @@ export interface Settings {
   codeChannel?: string;
   requestChannel?: string;
   modRoles?: string[];
-  error: string;
+  error?: string;
 }

@@ -1,7 +1,8 @@
 import Discord, { CollectorFilter, Message } from 'discord.js';
 import { CommandPromise } from './types';
 import { getServerSettings } from '../controllers/server';
-import defaultSettings from '../defaultSettings';
+import { Settings as ServerSettings } from '../models/server';
+import initialSettings from '../defaultSettings';
 
 const setup: CommandPromise = async (client, message) => {
   try {
@@ -9,17 +10,17 @@ const setup: CommandPromise = async (client, message) => {
       return;
     }
 
-    console.log(client.channels.cache.first());
+    const defaultChannelId = client.channels.cache.first()?.id;
 
-    const updated = {
-      modRoles: false,
-      prefix: false,
-      announceChannel: false,
-      codeChannel: false,
-      requestChannel: false,
+    const defaultSettings: ServerSettings = {
+      ...initialSettings,
+      announceChannel: defaultChannelId,
+      codeChannel: defaultChannelId,
+      requestChannel: defaultChannelId,
     };
 
-    const settings = await getServerSettings(message.guild?.id as string);
+    const settings =
+      (await getServerSettings(message.guild?.id as string)) || defaultSettings;
     const genericFilteer: CollectorFilter = (response: Message) =>
       response.author.id === message.author.id;
     const yesNoFiler: CollectorFilter = (response: Message) =>
@@ -30,9 +31,7 @@ const setup: CommandPromise = async (client, message) => {
     const embed = new Discord.MessageEmbed()
       .setTitle('Setup Prefix')
       .setDescription(
-        `The inisital prefix for the different commands is \`${
-          settings.prefix || defaultSettings.prefix
-        }\`. Would you like to update it? (\`y\`/\`n\`)`
+        `The current prefix for commands is \`${settings.prefix}\`. Would you like to update it? (\`y\`/\`n\`)`
       );
 
     const prompt = await message.channel.send(embed);
@@ -53,7 +52,6 @@ const setup: CommandPromise = async (client, message) => {
         time: 30000,
         errors: ['time'],
       });
-      updated.prefix = true;
       console.log(prefix.first()?.content);
     }
   } catch (err) {
