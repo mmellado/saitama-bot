@@ -1,8 +1,10 @@
 import Discord, { CollectorFilter, Message } from 'discord.js';
-import { CommandPromise } from './types';
-import { getServerSettings, setServerSettings } from '../controllers/server';
-import { Settings as ServerSettings } from '../models/server';
-import initialSettings from '../defaultSettings';
+import { CommandPromise } from '../types';
+import { getServerSettings, setServerSettings } from '../../controllers/server';
+import { Settings as ServerSettings } from '../../models/server';
+import initialSettings from '../../defaultSettings';
+
+import configurePrefix from './configurePrefix';
 
 const setup: CommandPromise = async (client, message) => {
   try {
@@ -25,67 +27,45 @@ const setup: CommandPromise = async (client, message) => {
         : storedSettings;
 
     // Message filters
-    const genericFilteer: CollectorFilter = (response: Message) =>
+    const genericFilter: CollectorFilter = (response: Message) =>
       response.author.id === message.author.id;
-    const yesNoFiler: CollectorFilter = (response: Message) =>
+    const yesNoFilter: CollectorFilter = (response: Message) =>
       response.author.id === message.author.id &&
       (response.content.toLocaleLowerCase() === 'y' ||
         response.content.toLocaleLowerCase() === 'n');
 
-    // Main bot response content
+    /** ***********************************************************************
+     *                                 PREFIX                                 *
+     ************************************************************************ */
     const embed = new Discord.MessageEmbed()
       .setColor('#0099ff')
       .setTitle('Setup Prefix')
       .setDescription(
         `The current prefix for commands is \`${settings.prefix}\`. Would you like to update it? (\`y\`/\`n\`)`
       );
-
-    // The actual message object to be manipulated
     const prompt = await message.channel.send(embed);
-    const answer = await message.channel.awaitMessages(yesNoFiler, {
+    const answer = await message.channel.awaitMessages(yesNoFilter, {
       max: 1,
       time: 30000,
       errors: ['time'],
     });
     answer.first()?.delete();
 
-    // Update the prefix if needed
     if (answer.first()?.content.toLocaleLowerCase() === 'y') {
-      embed.setDescription(
-        'Please enter the new prefix. It should be no longer than 2 characters.'
+      settings.prefix = await configurePrefix(
+        message,
+        prompt,
+        embed,
+        genericFilter
       );
-      await prompt.edit(embed);
-      let prefix = await message.channel.awaitMessages(genericFilteer, {
-        max: 1,
-        time: 30000,
-        errors: ['time'],
-      });
-      while (
-        !prefix.first()?.content ||
-        (prefix.first()?.content as string).length > 2
-      ) {
-        prefix.first()?.delete();
-        embed
-          .setColor('#ff0000')
-          .setDescription(
-            'A prefix is required. It should be no longer than 2 characters.'
-          );
-        // eslint-disable-next-line no-await-in-loop
-        await prompt.edit(embed);
-        // eslint-disable-next-line no-await-in-loop
-        prefix = await message.channel.awaitMessages(genericFilteer, {
-          max: 1,
-          time: 30000,
-          errors: ['time'],
-        });
-      }
-      settings.prefix = prefix.first()?.content;
-      prefix.first()?.delete();
     }
+    /** ***********************************************************************
+     *                              PREFIX END                                *
+     ************************************************************************ */
 
     console.log(settings);
     await setServerSettings(serverId, settings);
-    embed
+    await embed
       .setColor('#00ff00')
       .setTitle('Success')
       .setDescription('The setup is complete');
