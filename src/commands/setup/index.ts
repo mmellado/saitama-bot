@@ -28,7 +28,7 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
     const embed = new Discord.MessageEmbed()
       .setColor('#0099ff')
-      .setTitle(':one: Moderator Roles')
+      .setTitle(':one: Setup - Moderator Roles')
       .setDescription(
         `Please list the roles to be considered Mods. These will be able to use  Mod commands`
       );
@@ -47,7 +47,7 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
     embed
       .setColor('#0099ff')
-      .setTitle(':two: Setup Prefix')
+      .setTitle(':two: Setup - Prefix')
       .setDescription(
         `The current prefix for commands is \`${settings.prefix}\`. Would you like to update it? (\`y\`/\`n\`)`
       );
@@ -80,7 +80,7 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
     embed
       .setColor('#0099ff')
-      .setTitle(':three: Setup Announcements Channel')
+      .setTitle(':three: Setup - Announcements channel')
       .setDescription(
         `The current Announcements Channels is <#${settings.announceChannel}>. This is used for the ${settings.prefix}announce command to post to. Would you like to update it? (\`y\`/\`n\`)`
       );
@@ -112,7 +112,7 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
     embed
       .setColor('#0099ff')
-      .setTitle(':four: Setup Codes Channel')
+      .setTitle(':four: Setup - Codes channel')
       .setDescription(
         `The current Codes Channels is <#${settings.codeChannel}>. This is used for the ${settings.prefix}code command to post to. Would you like to update it? (\`y\`/\`n\`)`
       );
@@ -144,7 +144,7 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
     embed
       .setColor('#0099ff')
-      .setTitle(':five: Setup Requests Channel')
+      .setTitle(':five: Setup - Requests channel')
       .setDescription(
         `The current Requests Channels is <#${settings.requestChannel}>. This is only channel the ${settings.prefix}request command can be used. Would you like to update it? (\`y\`/\`n\`)`
       );
@@ -176,16 +176,19 @@ const setup: CommandPromise = async (server, message) => {
      ************************************************************************ */
 
     await setServerSettings(serverId, settings);
-    await embed
+    embed
       .setColor('#00ff00')
-      .setTitle(':white_check_mark: Success')
+      .setTitle(':white_check_mark: Setup - Success!')
       .setDescription('The setup is complete')
       .addFields(
         {
           name: 'Mod roles',
           value: settings.modRoles.map((r) => `<@&${r}>`).join(', '),
         },
-        // { name: '\u200B', value: '\u200B' },
+        {
+          name: 'Prefix',
+          value: `\`${settings.prefix}\``,
+        },
         {
           name: 'Announcements channel',
           value: `<#${settings.announceChannel}>`,
