@@ -7,6 +7,7 @@ import nickname from './nickname';
 import announce from './announce';
 import setup from './setup';
 import settings from './settings';
+import setNickname from './setNickname';
 
 const commands: CommandCollection = new Discord.Collection();
 
@@ -17,6 +18,7 @@ commands.set('settings', settings);
 // Mod + Admin
 commands.set('code', code);
 commands.set('announce', announce);
+commands.set('set-nickname', setNickname);
 
 // General
 commands.set('ping', ping);

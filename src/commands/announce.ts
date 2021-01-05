@@ -11,7 +11,7 @@ const announce: CommandPromise = async (server, message, args) => {
 
     const conversationEmbed = new Discord.MessageEmbed()
       .setColor(colors.red)
-      .setTitle('Post announcement - Error!')
+      .setTitle(':no_entry: Post announcement - Error!')
       .setDescription(
         `Please include a message to post to <#${server.announceChannel}>`
       );

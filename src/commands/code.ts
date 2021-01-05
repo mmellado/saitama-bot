@@ -16,7 +16,7 @@ const code: CommandPromise = async (server, message, args) => {
 
     const conversationEmbed = new Discord.MessageEmbed()
       .setColor(colors.red)
-      .setTitle('Create new code - Error!')
+      .setTitle(':no_entry: Create new code - Error!')
       .setDescription('A code is needed to use this command');
 
     if (!args?.length) {
