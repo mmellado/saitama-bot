@@ -22,12 +22,12 @@ export default async (_client: Client, message: Message): Promise<void> => {
     if (!command) return;
 
     // Grab the command data from the client.commands Collection
-    const commandCb = commands.get(command);
+    const cmd = commands.get(command);
 
-    if (!commandCb) return;
+    if (!cmd) return;
 
     // Run the command
-    commandCb(settings, message, args);
+    cmd.cb(settings, message, args);
   } catch (err) {
     console.error('Error in message.ts', err);
   }
