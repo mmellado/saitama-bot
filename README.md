@@ -7,6 +7,7 @@ Discord bot for OnePunch Man - Road to Hero. 2.0 support
 # Admin Only
 
 `s!setup`: Prompts to configure the bot. Allows configuring the moderator roles, prefix, announcement channel, codes channel and requests channel
+`s!settins`: Shows the current server settings.
 
 ### Admin/Mod commands
 
@@ -27,4 +28,3 @@ Discord bot for OnePunch Man - Road to Hero. 2.0 support
 - Add `s!request [user] [hero]` command
 - Add `s!adventure` command
 - Make bot language configurable per user
-- Make channels work based on channel id instead of channel name

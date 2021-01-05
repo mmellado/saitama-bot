@@ -24,10 +24,7 @@ export default async (_client: Client, message: Message): Promise<void> => {
     // Grab the command data from the client.commands Collection
     const commandCb = commands.get(command);
 
-    if (!commandCb) {
-      message.reply(`**${prefix}${command}** is not a valid command`);
-      return;
-    }
+    if (!commandCb) return;
 
     // Run the command
     commandCb(settings, message, args);
