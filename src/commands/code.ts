@@ -4,17 +4,16 @@ import Discord, {
   CollectorFilter,
   Message,
   TextChannel,
-  Role,
-  Collection,
+  GuildMember,
 } from 'discord.js';
 import { CommandPromise } from './types';
-import isAdminUser from '../utils/isAdminUser';
+import isModUser from '../utils/isModUser';
 
 dotenv.config();
 
 const code: CommandPromise = async (server, message, args) => {
   try {
-    if (!isAdminUser(message.member?.roles.cache as Collection<string, Role>)) {
+    if (!isModUser(server, message.member as GuildMember)) {
       return;
     }
 

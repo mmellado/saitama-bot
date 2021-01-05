@@ -1,5 +1,6 @@
-import Discord, { CollectorFilter, Message } from 'discord.js';
+import Discord, { CollectorFilter, Message, GuildMember } from 'discord.js';
 import { setServerSettings } from '../../controllers/server';
+import isAdminUser from '../../utils/isAdminUser';
 import { CommandPromise } from '../types';
 
 import configurePrefix from './configurePrefix';
@@ -8,7 +9,7 @@ import configureChannel from './configureChannel';
 
 const setup: CommandPromise = async (server, message) => {
   try {
-    if (!message.member?.hasPermission('ADMINISTRATOR')) {
+    if (!isAdminUser(message.member as GuildMember)) {
       return;
     }
 
