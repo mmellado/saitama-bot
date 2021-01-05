@@ -1,12 +1,8 @@
-import Discord, { GuildMember } from 'discord.js';
+import Discord from 'discord.js';
 import { Command } from './types';
-import isAdminUser from '../utils/isAdminUser';
 import colors from '../utils/colors';
 
 const settings: Command = (server, message) => {
-  if (!isAdminUser(message.member as GuildMember)) {
-    return;
-  }
   const embed = new Discord.MessageEmbed()
     .setColor(colors.blue)
     .setTitle('Server settings')

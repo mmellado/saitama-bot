@@ -9,8 +9,8 @@ const nickname: CommandPromise = async (_server, message, args) => {
 
     message.delete();
     const embed = new Discord.MessageEmbed()
-      .setColor(colors.blue)
-      .setTitle(':pencil: Nickname updated!')
+      .setColor(colors.green)
+      .setTitle(':white_check_mark: Nickname updated!')
       .setDescription(
         `Your nickname has been updated, ${message.author.toString()}`
       )

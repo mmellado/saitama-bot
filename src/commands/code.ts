@@ -1,19 +1,9 @@
-import Discord, {
-  CollectorFilter,
-  Message,
-  TextChannel,
-  GuildMember,
-} from 'discord.js';
+import Discord, { CollectorFilter, Message, TextChannel } from 'discord.js';
 import { CommandPromise } from './types';
-import isModUser from '../utils/isModUser';
 import colors from '../utils/colors';
 
 const code: CommandPromise = async (server, message, args) => {
   try {
-    if (!isModUser(server, message.member as GuildMember)) {
-      return;
-    }
-
     const conversationEmbed = new Discord.MessageEmbed()
       .setColor(colors.red)
       .setTitle(':no_entry: Create new code - Error!')

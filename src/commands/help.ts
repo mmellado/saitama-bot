@@ -1,28 +1,8 @@
-import Discord, { GuildMember, Message } from 'discord.js';
+import Discord, { Message } from 'discord.js';
 import { Settings as ServerSettings } from '../models/server';
 import { Command, CommandData } from './types';
-import isModUser from '../utils/isModUser';
-import isAdminUser from '../utils/isAdminUser';
-import parseCommand from '../utils/parseCommand';
 import colors from '../utils/colors';
 import commands from './index';
-
-const validate = (
-  command: string,
-  server: ServerSettings,
-  message: Message
-): boolean => {
-  if (command === 'admin-help' && !isAdminUser(message.member as GuildMember)) {
-    return false;
-  }
-  if (
-    command === 'mod-help' &&
-    !isModUser(server, message.member as GuildMember)
-  ) {
-    return false;
-  }
-  return true;
-};
 
 const renderCommands = (
   permissions: 0 | 1 | 2 | 3,
@@ -75,12 +55,6 @@ const renderCommands = (
 };
 
 const help: Command = (server, message, args) => {
-  const { command } = parseCommand(message, server.prefix);
-
-  if (!validate(command, server, message)) {
-    return;
-  }
-
   const argument = args ? args[0] : null;
 
   console.log();

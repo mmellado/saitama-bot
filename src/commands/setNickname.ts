@@ -1,14 +1,9 @@
-import Discord, { GuildMember } from 'discord.js';
+import Discord from 'discord.js';
 import { CommandPromise } from './types';
-import isModUser from '../utils/isModUser';
 import colors from '../utils/colors';
 
-const nickname: CommandPromise = async (server, message, args) => {
+const nickname: CommandPromise = async (_server, message, args) => {
   try {
-    if (!isModUser(server, message.member as GuildMember)) {
-      return;
-    }
-
     const fullCommand = (args && args.join(' ').trim()) || '';
     const userData = fullCommand.match(/^<@!?(\d+)>/);
 

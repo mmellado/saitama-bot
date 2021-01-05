@@ -1,6 +1,5 @@
-import Discord, { CollectorFilter, Message, GuildMember } from 'discord.js';
+import Discord, { CollectorFilter, Message } from 'discord.js';
 import { setServerSettings } from '../../controllers/server';
-import isAdminUser from '../../utils/isAdminUser';
 import colors from '../../utils/colors';
 import { CommandPromise } from '../types';
 
@@ -10,10 +9,6 @@ import configureChannel from './configureChannel';
 
 const setup: CommandPromise = async (server, message) => {
   try {
-    if (!isAdminUser(message.member as GuildMember)) {
-      return;
-    }
-
     const settings = { ...server };
     const serverId = message.guild?.id as string;
 
