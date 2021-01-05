@@ -1,34 +1,19 @@
 import Discord, { CollectorFilter, Message } from 'discord.js';
+import { setServerSettings } from '../../controllers/server';
 import { CommandPromise } from '../types';
-import { getServerSettings, setServerSettings } from '../../controllers/server';
-import { Settings as ServerSettings } from '../../models/server';
-import initialSettings from '../../defaultSettings';
 
 import configurePrefix from './configurePrefix';
 import configureModRoles from './configureModRoles';
 import configureChannel from './configureChannel';
 
-const setup: CommandPromise = async (client, message) => {
+const setup: CommandPromise = async (server, message) => {
   try {
     if (!message.member?.hasPermission('ADMINISTRATOR')) {
       return;
     }
 
-    // Current server setting
+    const settings = { ...server };
     const serverId = message.guild?.id as string;
-    const defaultChannelId = client.channels.cache.find(
-      (channel) => channel.type === 'text'
-    )?.id;
-    const storedSettings = await getServerSettings(serverId);
-    const settings: ServerSettings =
-      !storedSettings || storedSettings.error
-        ? {
-            ...initialSettings,
-            announceChannel: defaultChannelId,
-            codeChannel: defaultChannelId,
-            requestChannel: defaultChannelId,
-          }
-        : storedSettings;
 
     // Message filters
     const genericFilter: CollectorFilter = (response: Message) =>

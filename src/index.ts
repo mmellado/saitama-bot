@@ -3,18 +3,10 @@ import dotenv from 'dotenv';
 import Discord from 'discord.js';
 
 import events from './events';
-import commands from './commands';
-import { CustomClient } from './types';
-import defaultSettings from './defaultSettings';
 
 dotenv.config();
-const config = {
-  prefix: process.env.prefix || defaultSettings.prefix,
-};
 
-const client = new Discord.Client() as CustomClient;
-client.config = config;
-client.commands = commands;
+const client = new Discord.Client();
 
 events.forEach((listener, event) => {
   client.on(event, listener.bind(null, client));

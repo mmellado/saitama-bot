@@ -1,7 +1,6 @@
-import { Collection, Message } from 'discord.js';
-import { CustomClient } from '../types';
+import { Client, Collection, Message } from 'discord.js';
 
 export type EventCollection = Collection<
   'ready' | 'message',
-  (client: CustomClient, msg: Message) => void
+  (client: Client, msg: Message) => void
 >;

@@ -1,32 +1,37 @@
-import { Message } from 'discord.js';
-import { CustomClient } from '../types';
+import { Client, Message } from 'discord.js';
+import { getServerSettingsFromMessage } from '../controllers/server';
+import commands from '../commands';
 
-export default (client: CustomClient, message: Message): void => {
+export default async (_client: Client, message: Message): Promise<void> => {
   // Ignore all bots
-  if (message.author.bot) return;
+  try {
+    if (message.author.bot) return;
 
-  // Ignore messages not starting with the prefix
-  if (!message.content.startsWith(client.config.prefix)) return;
+    const settings = await getServerSettingsFromMessage(message);
 
-  // Our standard argument/command name definition.
-  // See https://anidiots.guide/v/v12/first-bot/command-with-arguments for details.
-  const args = message?.content
-    ?.slice(client.config.prefix.length)
-    .split(/ +/g);
-  const command = args.shift()?.toLowerCase();
+    const prefix = settings.prefix as string;
 
-  if (!command) return;
+    if (!message.content.startsWith(prefix)) return;
+    // Ignore messages not starting with the prefix
 
-  // Grab the command data from the client.commands Collection
-  const cmd = client.commands.get(command);
+    // Our standard argument/command name definition.
+    // See https://anidiots.guide/v/v12/first-bot/command-with-arguments for details.
+    const args = message?.content?.slice(prefix.length).split(/ +/g);
+    const command = args.shift()?.toLowerCase();
 
-  if (!cmd) {
-    message.reply(
-      `**${client.config.prefix}${command}** is not a valid command`
-    );
-    return;
+    if (!command) return;
+
+    // Grab the command data from the client.commands Collection
+    const commandCb = commands.get(command);
+
+    if (!commandCb) {
+      message.reply(`**${prefix}${command}** is not a valid command`);
+      return;
+    }
+
+    // Run the command
+    commandCb(settings, message, args);
+  } catch (err) {
+    console.error('Error in message.ts', err);
   }
-
-  // Run the command
-  cmd(client, message, args);
 };

@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import { CommandPromise } from './types';
 
-const nickname: CommandPromise = async (_, message, args) => {
+const nickname: CommandPromise = async (_server, message, args) => {
   try {
     const newNickname = (args && args.join(' ')) || '';
     await message.member?.setNickname(newNickname);
