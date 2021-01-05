@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-
 import Discord, {
   CollectorFilter,
   Message,
@@ -8,8 +6,7 @@ import Discord, {
 } from 'discord.js';
 import { CommandPromise } from './types';
 import isModUser from '../utils/isModUser';
-
-dotenv.config();
+import colors from '../utils/colors';
 
 const code: CommandPromise = async (server, message, args) => {
   try {
@@ -18,7 +15,7 @@ const code: CommandPromise = async (server, message, args) => {
     }
 
     const conversationEmbed = new Discord.MessageEmbed()
-      .setColor('#ff0000')
+      .setColor(colors.red)
       .setTitle('Create new code - Error!')
       .setDescription('A code is needed to use this command');
 
@@ -33,7 +30,7 @@ const code: CommandPromise = async (server, message, args) => {
       response.author.id === message.author.id;
 
     conversationEmbed
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle('Create new code')
       .setDescription("Please specify the code's reward");
 
@@ -51,12 +48,12 @@ const code: CommandPromise = async (server, message, args) => {
     ) as TextChannel;
 
     conversationEmbed
-      .setColor('#00ff00')
-      .setTitle('Create new code - Success!')
+      .setColor(colors.green)
+      .setTitle(':white_check_mark: Create new code - Success!')
       .setDescription(`Code posted to <#${server.codeChannel}>`);
 
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle('New Code!')
       .setDescription(newCode)
       .addField('Reward', reward)

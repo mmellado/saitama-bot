@@ -1,5 +1,6 @@
 import { CollectorFilter, Message, MessageEmbed } from 'discord.js';
 import { Settings as ServerSettings } from '../../models/server';
+import colors from '../../utils/colors';
 
 export default async (
   message: Message,
@@ -23,7 +24,7 @@ export default async (
 
     while (channelList.length !== 1) {
       embed
-        .setColor('#ff0000')
+        .setColor(colors.red)
         .setDescription('You need to specify exactly 1 channel');
       await prompt.edit(embed);
 

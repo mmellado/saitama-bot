@@ -1,5 +1,6 @@
 import { CollectorFilter, Message, MessageEmbed } from 'discord.js';
 import { Settings as ServerSettings } from '../../models/server';
+import colors from '../../utils/colors';
 
 export default async (
   message: Message,
@@ -22,7 +23,7 @@ export default async (
 
     while (!roleList.length) {
       embed
-        .setColor('#ff0000')
+        .setColor(colors.red)
         .setDescription(
           'You need to appoint at least 1 role as a  Moderator role. Please enter the list of Mod roles by mentioning them using @.'
         );

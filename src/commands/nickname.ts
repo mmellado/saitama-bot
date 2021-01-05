@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import { CommandPromise } from './types';
+import colors from '../utils/colors';
 
 const nickname: CommandPromise = async (_server, message, args) => {
   try {
@@ -8,7 +9,7 @@ const nickname: CommandPromise = async (_server, message, args) => {
 
     message.delete();
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':pencil: Nickname updated!')
       .setDescription(
         `Your nickname has been updated, ${message.author.toString()}`

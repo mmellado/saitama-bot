@@ -1,13 +1,14 @@
 import Discord, { GuildMember } from 'discord.js';
 import { Command } from './types';
 import isAdminUser from '../utils/isAdminUser';
+import colors from '../utils/colors';
 
 const settings: Command = (server, message) => {
   if (!isAdminUser(message.member as GuildMember)) {
     return;
   }
   const embed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor(colors.blue)
     .setTitle('Server settings')
     .setDescription(`To update thesesettings, use \`${server.prefix}setup\`.`)
     .addFields(

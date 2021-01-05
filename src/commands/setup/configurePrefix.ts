@@ -1,5 +1,6 @@
 import { CollectorFilter, Message, MessageEmbed } from 'discord.js';
 import { Settings as ServerSettings } from '../../models/server';
+import colors from '../../utils/colors';
 
 export default async (
   message: Message,
@@ -24,7 +25,7 @@ export default async (
     ) {
       await prefix.first()?.delete();
       embed
-        .setColor('#ff0000')
+        .setColor(colors.red)
         .setDescription(
           'A prefix is required. It should be no longer than 2 characters.'
         );

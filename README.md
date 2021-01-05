@@ -21,7 +21,6 @@ Discord bot for OnePunch Man - Road to Hero. 2.0 support
 
 ## TODO
 
-- Add Color specific embeds for info, warning and success
 - Add `s!help` command
 - Add `s!mod-help` command
 - Add `s!set-nickname [user] [new nickname]` admin command

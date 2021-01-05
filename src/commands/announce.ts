@@ -1,10 +1,7 @@
-import dotenv from 'dotenv';
-
 import Discord, { TextChannel, GuildMember } from 'discord.js';
 import { CommandPromise } from './types';
 import isModUser from '../utils/isModUser';
-
-dotenv.config();
+import colors from '../utils/colors';
 
 const announce: CommandPromise = async (server, message, args) => {
   try {
@@ -13,7 +10,7 @@ const announce: CommandPromise = async (server, message, args) => {
     }
 
     const conversationEmbed = new Discord.MessageEmbed()
-      .setColor('#ff0000')
+      .setColor(colors.red)
       .setTitle('Post announcement - Error!')
       .setDescription(
         `Please include a message to post to <#${server.announceChannel}>`
@@ -30,12 +27,12 @@ const announce: CommandPromise = async (server, message, args) => {
     ) as TextChannel;
 
     conversationEmbed
-      .setColor('#00ff00')
-      .setTitle('Post announcement - Success!')
+      .setColor(colors.green)
+      .setTitle(':white_check_mark: Post announcement - Success!')
       .setDescription(`Message posted to <#${server.announceChannel}>`);
 
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setDescription(announcement);
 
     await announcementChannel.send(embed);

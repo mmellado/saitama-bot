@@ -1,6 +1,7 @@
 import Discord, { CollectorFilter, Message, GuildMember } from 'discord.js';
 import { setServerSettings } from '../../controllers/server';
 import isAdminUser from '../../utils/isAdminUser';
+import colors from '../../utils/colors';
 import { CommandPromise } from '../types';
 
 import configurePrefix from './configurePrefix';
@@ -28,7 +29,7 @@ const setup: CommandPromise = async (server, message) => {
      *                                 ROLES                                  *
      ************************************************************************ */
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':one: Setup - Moderator Roles')
       .setDescription(
         `Please list the roles to be considered Mods. These will be able to use  Mod commands`
@@ -47,7 +48,7 @@ const setup: CommandPromise = async (server, message) => {
      *                                 PREFIX                                 *
      ************************************************************************ */
     embed
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':two: Setup - Prefix')
       .setDescription(
         `The current prefix for commands is \`${settings.prefix}\`. Would you like to update it? (\`y\`/\`n\`)`
@@ -62,7 +63,7 @@ const setup: CommandPromise = async (server, message) => {
 
     if (prefixAnswer.first()?.content.toLocaleLowerCase() === 'y') {
       embed
-        .setColor('#ffb84d')
+        .setColor(colors.yellow)
         .setDescription(
           'Please enter the new prefix. It should be no longer than 2 characters.'
         );
@@ -80,7 +81,7 @@ const setup: CommandPromise = async (server, message) => {
      *                     ANNOUNCEMENT CHANNEL                                *
      ************************************************************************ */
     embed
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':three: Setup - Announcements channel')
       .setDescription(
         `The current Announcements Channels is <#${settings.announceChannel}>. This is used for the ${settings.prefix}announce command to post to. Would you like to update it? (\`y\`/\`n\`)`
@@ -95,7 +96,7 @@ const setup: CommandPromise = async (server, message) => {
 
     if (announceChannel.first()?.content.toLocaleLowerCase() === 'y') {
       embed
-        .setColor('#ffb84d')
+        .setColor(colors.yellow)
         .setDescription('Please tag the new Announcements Channel.');
       await prompt.edit(embed);
       settings.announceChannel = await configureChannel(
@@ -112,7 +113,7 @@ const setup: CommandPromise = async (server, message) => {
      *                            CODES CHANNEL                                *
      ************************************************************************ */
     embed
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':four: Setup - Codes channel')
       .setDescription(
         `The current Codes Channels is <#${settings.codeChannel}>. This is used for the ${settings.prefix}code command to post to. Would you like to update it? (\`y\`/\`n\`)`
@@ -127,7 +128,7 @@ const setup: CommandPromise = async (server, message) => {
 
     if (codeChannel.first()?.content.toLocaleLowerCase() === 'y') {
       embed
-        .setColor('#ffb84d')
+        .setColor(colors.yellow)
         .setDescription('Please tag the new Announcements Channel.');
       await prompt.edit(embed);
       settings.codeChannel = await configureChannel(
@@ -144,7 +145,7 @@ const setup: CommandPromise = async (server, message) => {
      *                        REQUESTS CHANNEL                                *
      ************************************************************************ */
     embed
-      .setColor('#0099ff')
+      .setColor(colors.blue)
       .setTitle(':five: Setup - Requests channel')
       .setDescription(
         `The current Requests Channels is <#${settings.requestChannel}>. This is only channel the ${settings.prefix}request command can be used. Would you like to update it? (\`y\`/\`n\`)`
@@ -159,7 +160,7 @@ const setup: CommandPromise = async (server, message) => {
 
     if (requestChannel.first()?.content.toLocaleLowerCase() === 'y') {
       embed
-        .setColor('#ffb84d')
+        .setColor(colors.yellow)
         .setDescription('Please tag the new Requests Channel.');
       await prompt.edit(embed);
       settings.requestChannel = await configureChannel(
@@ -178,7 +179,7 @@ const setup: CommandPromise = async (server, message) => {
 
     await setServerSettings(serverId, settings);
     embed
-      .setColor('#00ff00')
+      .setColor(colors.green)
       .setTitle(':white_check_mark: Setup - Success!')
       .setDescription('The setup is complete')
       .addFields(
