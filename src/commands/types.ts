@@ -13,10 +13,13 @@ export type CommandPromise = (
   args?: string[]
 ) => Promise<void>;
 
+type CommandCallback = Command | CommandPromise;
+
 export type CommandData = {
   permissions: 0 | 1 | 2;
+  arguments?: string;
   description: string;
-  cb: Command | CommandPromise;
+  cb: CommandCallback;
 };
 
 export type CommandCollection = Collection<Snowflake, CommandData>;

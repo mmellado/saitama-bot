@@ -17,13 +17,12 @@ Discord bot for OnePunch Man - Road to Hero. 2.0 support
 
 ### General commands
 
+`s!help`: Shows the bot's available commands
 `s!ping`: Basic command to test the bot
 `s!nickname [new nickname]`: Command to easily change your own nickname. If no nickname is passed, the nickname is reset.
 
 ## TODO
 
-- Add `s!help` command
-- Add `s!mod-help` command
 - Add `s!request [user] [hero]` command
 - Add `s!adventure` command
 - Make bot language configurable per user

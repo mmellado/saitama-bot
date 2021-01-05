@@ -1,6 +1,8 @@
 import { Client, Message } from 'discord.js';
 import { getServerSettingsFromMessage } from '../controllers/server';
 import commands from '../commands';
+import parseCommand from '../utils/parseCommand';
+import help from '../commands/help';
 
 export default async (_client: Client, message: Message): Promise<void> => {
   // Ignore all bots
@@ -11,19 +13,19 @@ export default async (_client: Client, message: Message): Promise<void> => {
 
     const prefix = settings.prefix as string;
 
-    if (!message.content.startsWith(prefix)) return;
     // Ignore messages not starting with the prefix
+    if (!message.content.startsWith(prefix)) return;
 
-    // Our standard argument/command name definition.
-    // See https://anidiots.guide/v/v12/first-bot/command-with-arguments for details.
-    const args = message?.content?.slice(prefix.length).split(/ +/g);
-    const command = args.shift()?.toLowerCase();
+    const { command, args } = parseCommand(message, prefix);
+    commands.set('help', {
+      permissions: 2,
+      description: 'Shows the list of available commands.',
+      cb: help,
+    });
 
     if (!command) return;
 
-    // Grab the command data from the client.commands Collection
     const cmd = commands.get(command);
-
     if (!cmd) return;
 
     // Run the command
