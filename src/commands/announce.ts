@@ -11,23 +11,35 @@ const announce: CommandPromise = async (server, message, args) => {
     if (!isAdminUser(message.member?.roles.cache as Collection<string, Role>)) {
       return;
     }
+
+    const conversationEmbed = new Discord.MessageEmbed()
+      .setColor('#ff0000')
+      .setTitle('Post announcement - Error!')
+      .setDescription(
+        `Please include a message to post to <#${server.announceChannel}>`
+      );
+
     if (!args?.length) {
-      message.channel.send('Please add a message to announce');
+      message.channel.send(conversationEmbed);
       return;
     }
 
     const announcement = message.content.slice(server.prefix.length + 9);
-    const announcementChannel =
-      (message.client.channels.cache.find(
-        (channel: TextChannel) =>
-          channel.name === process.env.ANNOUNCEMENTS_CHANNEL
-      ) as TextChannel) || message.channel;
+    const announcementChannel = message.client.channels.cache.get(
+      server.announceChannel
+    ) as TextChannel;
+
+    conversationEmbed
+      .setColor('#00ff00')
+      .setTitle('Post announcement - Success!')
+      .setDescription(`Message posted to <#${server.announceChannel}>`);
 
     const embed = new Discord.MessageEmbed()
       .setColor('#0099ff')
       .setDescription(announcement);
 
     await announcementChannel.send(embed);
+    await message.channel.send(conversationEmbed);
   } catch (err) {
     console.error('Error on announce.ts', err);
   }

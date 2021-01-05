@@ -60,7 +60,7 @@ const code: CommandPromise = async (server, message, args) => {
       .setColor('#0099ff')
       .setTitle('New Code!')
       .setDescription(newCode)
-      .addField('Rewards', reward)
+      .addField('Reward', reward)
       .setTimestamp();
 
     await replyChannel.send(embed);
