@@ -8,6 +8,7 @@ import announce from './announce';
 import setup from './setup';
 import settings from './settings';
 import setNickname from './setNickname';
+import request from './request';
 
 const commands: CommandCollection = new Discord.Collection();
 
@@ -57,6 +58,12 @@ commands.set('nickname', {
   description:
     "Helps update the user's nickname. If no nickname is passed, the nickname is reset.",
   cb: nickname,
+});
+commands.set('request', {
+  permissions: 2,
+  description:
+    'Lists all the custom emojis in the server together  with their name and ID',
+  cb: request,
 });
 
 export default commands;
