@@ -92,8 +92,8 @@ const handleDataGathering = async (
 
     await prompt.edit(embed);
 
-    await prompt.react('✅');
-    await prompt.react('❌');
+    prompt.react('✅');
+    prompt.react('❌');
 
     const confirmation = await prompt.awaitReactions(confirmationFilter, {
       max: 1,
@@ -105,7 +105,6 @@ const handleDataGathering = async (
     const answer = confirmation.first();
 
     if (answer?.emoji.name === '❌') {
-      console.log('error');
       prompt.delete();
       handleDataGathering(embed, message, server);
       return;
@@ -116,15 +115,15 @@ const handleDataGathering = async (
         .setTitle(':white_check_mark: Request - Success!')
         .setDescription(
           `Your request has been made and published to <#${server.requestChannel}>`
-        );
+        )
+        .setFooter('');
 
       const requestEmbed = new Discord.MessageEmbed()
         .setColor(colors.blue)
         .setTitle('Character Request')
         .setDescription(
           `Hey <@${lender}>, <@${message.author.id}> would like to borrow your <${selection.emoji}> ${selection.name}.`
-        )
-        .setFooter('');
+        );
 
       const requestChannel = message.client.channels.cache.get(
         server.requestChannel
@@ -132,8 +131,6 @@ const handleDataGathering = async (
 
       await requestChannel.send(requestEmbed);
       await prompt.edit(embed);
-
-      console.log('success');
     }
   } catch (err) {
     console.error(err);
