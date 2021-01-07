@@ -123,13 +123,18 @@ const handleDataGathering = async (
         .setTitle('Character Request')
         .setDescription(
           `Hey <@${lender}>, <@${message.author.id}> would like to borrow your <${selection.emoji}> ${selection.name}.`
+        )
+        .setFooter(
+          `<@${lender}>, Please react with ✅ to confirm or ❌ to decline`
         );
 
       const requestChannel = message.client.channels.cache.get(
         server.requestChannel
       ) as TextChannel;
 
-      await requestChannel.send(requestEmbed);
+      const req = await requestChannel.send(requestEmbed);
+      req.react('✅');
+      req.react('❌');
       await prompt.edit(embed);
     }
   } catch (err) {
